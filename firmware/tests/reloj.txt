@@ -1,0 +1,84 @@
+# El MIDI se lee al principio de cada bloque de audio (5.8 ms): después de cada mensaje suelto va un wait 10.
+# Reloj MIDI de afuera: tempo, Start/Stop/Continue, secuenciador y arpegiador (firmware/tests/correr.sh)
+wait 600
+expect externo 0
+# 48 pulsos a 21 ms = 119 BPM: el aparato los sigue.
+clock 48 21
+expect externo 1
+expect bpm_externo >115
+expect bpm_externo <123
+# Secuenciador: PLAY, luego Start; el primer pulso da el paso 1 y cada 6 pulsos el siguiente.
+tap PLAY
+expect tocando 1
+midi FA 00 00
+wait 10
+clock 1 21
+expect paso 0
+clock 5 21
+expect paso 0
+clock 1 21
+expect paso 1
+clock 6 21
+expect paso 2
+# Stop detiene el avance aunque sigan los pulsos; Continue lo retoma.
+midi FC 00 00
+wait 10
+expect transporte 0
+clock 12 21
+expect paso 2
+midi FB 00 00
+wait 10
+expect transporte 1
+clock 6 21
+expect paso 3
+# El contador de la celda Clock: compás y tiempo desde el Start.
+tap SEQ
+wait 40
+shot reloj-contador.png
+# A 60 BPM (42 ms) el tempo baja.
+clock 48 42
+expect bpm_externo >57
+expect bpm_externo <63
+# Sin pulsos medio segundo: vuelve al tempo propio y, como seguía corriendo, no se detiene.
+wait 700
+expect externo 0
+tap PLAY
+expect tocando 0
+# Arpegiador sincronizado (Arp Pluck, semicorcheas): con el reloj a 119 y luego a 60 BPM.
+turn PRESET 39
+wait 30
+expect programa 39
+clock 24 21
+midi 90 30 64
+wav arp-119.wav
+clock 96 21
+wavstop
+wav arp-60.wav
+clock 96 42
+wavstop
+midi 80 30 00
+wait 700
+expect externo 0
+# Sin reloj, con su tempo propio (120).
+midi 90 30 64
+wav arp-propio.wav
+wait 2000
+wavstop
+midi 80 30 00
+wait 1000
+# Diagnóstico: un Start con el reloj ya perdido no adelanta el patrón, y un hueco de 300 ms entre pulsos queda anotado.
+tap SEQ
+wait 40
+tap PLAY
+midi FA 00 00
+wait 10
+expect externo 1
+clock 1 21
+expect paso 0
+clock 6 21
+expect paso 1
+wait 300
+clock 6 21
+expect hueco >290
+expect starts 2
+shot reloj-diagnostico.png

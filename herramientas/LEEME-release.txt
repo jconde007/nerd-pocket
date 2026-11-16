@@ -1,0 +1,32 @@
+Nerd Pocket: a virtual analog synth with a step sequencer and an arpeggiator, for the M-VAVE FM-1.
+Unofficial firmware. Not affiliated with or endorsed by M-VAVE. Use it at your own risk.
+
+Source of the FM-1 app (MPL-2.0): https://github.com/jconde007/nerd-pocket
+The synth engine is closed source: (c) 2026 Jorge Conde, free to use with this firmware.
+Web installer and browser emulator: https://jconde007.github.io/nerd-pocket/
+Licence of the app: MPL-2.0 (LICENSE-MPL-2.0.txt). It includes three files of JieLi's AC79 SDK (Apache-2.0) and the Barlow font (SIL OFL 1.1), in LICENSES/.
+Built on fm1-base and felucca-bsp (MPL-2.0).
+
+BEFORE INSTALLING
+- It uses the FM-1's second core, which is beta and misbehaves on some units. If it fails, the synth keeps running on one core with fewer voices until you switch it off.
+- It has been tested on a single FM-1.
+- Installing replaces the firmware on the FM-1. What another firmware saved on it may be lost.
+- A failed install can leave the FM-1 unable to start. Recovery is felucca-bsp's fm1_rescue (macOS, Linux), which puts the stock firmware back.
+- To go back to M-VAVE's firmware: the web installer's "Back to the stock firmware", or M-VAVE's M-UPGRADE.
+
+INSTALL
+- In Chrome or Edge: https://jconde007.github.io/nerd-pocket/install/ with the FM-1 connected by USB.
+- Or from the command line: fm1-base's tools/fm1_install.py nerdpocket-VERSION.fwsc (needs mido and python-rtmidi).
+- If the FM-1 runs a firmware the installer does not recognise, put M-VAVE's firmware back first, then install Nerd Pocket.
+
+CONTROLS
+K1-K4: edit the panel. SELECT: next panel. PRESETS: program. ALGORITHM: mod wheel. MASTER: volume.
+PROGRAMS: 99, A01-A99. SAVE works on all of them.
+HOME, EDIT, ENV, LFO, FX, ARP, GLO, SEQ: open a module; press again for its next panel.
+Hold SEL and turn K1-K4: morph amount.
+SAVE: keep the sound on this preset, with the pattern and tempo. Hold SEL and press SAVE: back to the factory sound.
+SEQ panel: K1 step, K2 note, K3 gate, K4 tempo, SEL step on/off, PLAY start/stop, REC write steps from the keys.
+MIDI IN: notes with velocity, mod wheel (CC 1), pitch bend, and Program Change 0-98.
+MIDI CLOCK: with MIDI clock coming in (USB or TRS), the arpeggiator (with Sync on), the sequencer and the synced delay follow
+  its tempo, and the SEQ panel shows it as Clock. Start restarts the pattern on the next beat, Stop pauses it, Continue resumes it.
+  Half a second without clock: back to the synth's own tempo, with the sequencer stopped.

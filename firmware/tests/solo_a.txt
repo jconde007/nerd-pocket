@@ -1,0 +1,14 @@
+# Versión pública, solo banco A (lo agrega correr.sh en lugar de las pruebas del banco B).
+midi B0 00 00
+midi C0 03 00
+wait 40
+expect programa 3
+# Bank Select 1 + Program Change: no hay banco B, el programa no cambia.
+midi B0 00 01
+midi C0 02 00
+wait 40
+expect programa 3
+midi B0 00 00
+midi C0 00 00
+wait 40
+expect programa 0

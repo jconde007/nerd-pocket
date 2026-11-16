@@ -1,0 +1,4 @@
+# Palabras para un lector de pantalla (fm1-reader): el texto de la pantalla <TAB> cómo decirlo.
+# fm1-base exige la línea url: donde el sitio publica estas palabras (tools/publish_site.sh).
+# url: https://jconde007.github.io/nerd-pocket/words/
+NERD POCKET	nerd pocket

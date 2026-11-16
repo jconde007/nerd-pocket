@@ -1,0 +1,17 @@
+# Ajustes de compilación de Nerd Pocket (fm1-base/tools/build.py).
+name = "NERDPOCKET"
+id_prefix = "FM-1_85"          # identidad del paquete; los de desarrollo son FM-1_8500 (el 84 ya lo usaban FIELD y ABYSS ENGINE)
+usb_manufacturer = "Nerd Pocket"
+usb_product = "NERD POCKET FM-1"
+o2 = ["../motor/pocket.c", "../motor/tablas.c"]
+o2_cflags = ["-DPOCKET_EN_POOL"]   # con NP_MEDIDAS (app.h), también -DPOCKET_PERFIL
+device_include = ["inc"]
+usb_audio_in = false           # sin audio USB ni radio: toda la RAM posible para el motor
+usb_audio_out = false
+cpu2 = true                    # la mitad de las voces en el segundo núcleo
+cpu2_fallback = true           # si falla, sigue con uno hasta apagar, en vez de reiniciar
+font_full = ["M", "T"]         # la lectura y las celdas llevan minúsculas: kHz, ms
+licence = "MPL-2.0 (the app; the synth engine is closed source)"
+repo = "https://github.com/jconde007/nerd-pocket"
+tagline = "a virtual analog synth with a sequencer for the FM-1"
+credits = "Built on fm1-base and felucca-bsp."

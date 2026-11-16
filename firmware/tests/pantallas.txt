@@ -1,0 +1,26 @@
+# Las pantallas para mostrar el firmware: firmware/build/host/nerdpocket_host firmware/tests/pantallas.txt <carpeta>
+wait 60
+shot 1-arranque.png
+wait 600
+shot 2-home.png
+turn PRESET 2
+wait 60
+key 7 down 100
+key 11 down 100
+key 14 down 100
+wait 400
+shot 3-home-tocando.png
+tap EDIT
+wait 60
+shot 4-oscilador.png
+tap EDIT
+tap EDIT
+tap EDIT
+tap EDIT
+wait 60
+shot 5-filtro.png
+tap SEQ
+wait 60
+tap PLAY
+wait 500
+shot 6-secuenciador.png
